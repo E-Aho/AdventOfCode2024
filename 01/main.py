@@ -6,14 +6,19 @@ import numpy as np
 
 from utils import parse_input
 
-def main(input: list[str]):
-    left, right = zip(*input)
-    left = sorted(list(map(int, left)))
-    right = sorted(list(map(int, right)))
+def main(input: list[list[str]]):
 
-    part_1 = sum([abs(left[x] - right[x]) for x in range(len(right))])
+    # get two sorted lists of integers from left/right of input
+    left, right = tuple(map(
+        lambda x: sorted(list(map(int, x))),
+        zip(*input)
+    ))
+
+    # p1
+    part_1 = sum([abs(left[i] - right[i]) for i in range(len(right))])
     print(f"part 1: {part_1}")
 
+    # p2
     count_right = Counter(right)
     part_2 = 0
     for k in left:
@@ -22,11 +27,11 @@ def main(input: list[str]):
 
 
 if __name__ == "__main__":
-
-    dir = Path(__file__).resolve().parent
     run_dev = False
-    if run_dev:
-        main(parse_input(dir/"dev_input.txt"))
 
-    main(parse_input(dir / "input.txt"))
+    directory = Path(__file__).resolve().parent
+    if run_dev:
+        main(parse_input(directory / "dev_input.txt"))
+
+    main(parse_input(directory / "input.txt"))
 
