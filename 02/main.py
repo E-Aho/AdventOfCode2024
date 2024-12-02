@@ -19,8 +19,7 @@ def main(input: list[list[str]]):
         return True
 
 
-    checks = [check_safe(x) for x in input]
-    print(f"part 1: {sum(checks)}")
+    print(f"part 1: {sum([check_safe(x) for x in input])}")
 
     def check_safe_p2(input):
         # small input (all less than 8 in length), brute force will work.
