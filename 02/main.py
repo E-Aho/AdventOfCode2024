@@ -23,7 +23,7 @@ def main(input: list[list[str]]):
     print(f"part 1: {sum(checks)}")
 
     def check_safe_p2(input):
-        # small input, brute force will work.
+        # small input (all less than 8 in length), brute force will work.
         # could do something smarter, but this is quick to implement and foolproof.
         if check_safe(input):
             return True
