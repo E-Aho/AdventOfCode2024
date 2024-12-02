@@ -14,7 +14,7 @@ def main(input: list[list[str]]):
         for i in range(1, len(input)):
             if (input[i] < input[i-1]) != is_decending:
                 return False
-            if abs(input[i] - input[i-1]) not in (1,2,3):
+            if abs(input[i] - input[i-1]) not in {1,2,3}:
                 return False
         return True
 
