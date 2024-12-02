@@ -18,7 +18,6 @@ def main(input: list[list[str]]):
                 return False
         return True
 
-
     print(f"part 1: {sum([check_safe(x) for x in input])}")
 
     def check_safe_p2(input):
