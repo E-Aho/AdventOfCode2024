@@ -32,8 +32,7 @@ def main(input: str):
         # grab part of each section before first 'dont()'
         active_sections.append(s.split("don't()")[0])
 
-    tot = sum([get_score_from_str(x) for x in active_sections])
-    print(f"Part 2: {tot}")
+    print(f"Part 2: {sum([get_score_from_str(x) for x in active_sections])}")
 
 
 
