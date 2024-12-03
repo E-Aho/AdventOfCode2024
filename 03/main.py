@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import re
 
-from utils import parse_input, raw_input
+from utils import raw_input
 
 
 def main(input: str):
@@ -13,15 +13,16 @@ def main(input: str):
         # regex to get all valid mults
         regex_str = r'mul\(\d+,\d+\)'
         valid_mults = re.findall(regex_str, input_str)
-        tot = 0
-        for s in valid_mults:
-            # messy way to get prod of ints from the found strings
-            tot += np.prod(tuple(map(int, s.split("(")[1].split(")")[0].split(","))))
-        return tot
+
+        # sum the prod of all valid mults
+        return sum([
+            np.prod([int(x) for x in re.findall(r'\d+', valid_mult)])
+            for valid_mult in valid_mults
+        ])
 
     print(f"Part 1: {get_score_from_str(input)}")
 
-    #p2
+    # p2
     active_sections = []
 
     # get all sections broken up by a 'do()'
