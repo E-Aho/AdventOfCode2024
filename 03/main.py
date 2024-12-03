@@ -10,15 +10,8 @@ from utils import raw_input
 def main(input: str):
 
     def get_score_from_str(input_str):
-        # regex to get all valid mults
-        regex_str = r'mul\(\d+,\d+\)'
-        valid_mults = re.findall(regex_str, input_str)
-
-        # sum the prod of all valid mults
-        return sum([
-            np.prod([int(x) for x in re.findall(r'\d+', valid_mult)])
-            for valid_mult in valid_mults
-        ])
+        valid_mults = re.findall(r'mul\((\d+),(\d+)\)', input_str)
+        return sum([int(a) * int(b) for a, b in valid_mults])
 
     print(f"Part 1: {get_score_from_str(input)}")
 
