@@ -4,7 +4,8 @@ from pathlib import Path
 
 import numpy as np
 
-from utils import parse_input
+from utils import run_day
+
 
 def main(input: list[list[str]]):
 
@@ -27,11 +28,4 @@ def main(input: list[list[str]]):
 
 
 if __name__ == "__main__":
-    run_dev = False
-
-    directory = Path(__file__).resolve().parent
-    if run_dev:
-        main(parse_input(directory / "dev_input.txt"))
-
-    main(parse_input(directory / "input.txt"))
-
+    run_day(main, run_dev=True)

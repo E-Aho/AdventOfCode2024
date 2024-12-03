@@ -1,10 +1,6 @@
-import os
-from pathlib import Path
-
-import numpy as np
 import re
 
-from utils import raw_input
+from utils import run_day
 
 
 def main(input: str):
@@ -30,17 +26,4 @@ def main(input: str):
 
 
 if __name__ == "__main__":
-    run_dev = True
-
-    directory = Path(__file__).resolve().parent
-    dev_path = directory / "dev_input.txt"
-    main_math = directory / "input.txt"
-
-    if run_dev:
-        print("Dev results:")
-        main(raw_input(dev_path))
-        print("\n")
-
-    print("Main results: ")
-    main(raw_input(main_math))
-
+    run_day(main, run_dev=True, parse_input=False)
