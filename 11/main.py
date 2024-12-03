@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     directory = Path(__file__).resolve().parent
     dev_path = directory / "dev_input.txt"
-    main_math = directory/"input.txt"
+    main_math = directory / "input.txt"
 
     if run_dev:
         print("Dev results:")
