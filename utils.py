@@ -4,6 +4,8 @@ import time
 from pathlib import Path
 from typing import Callable, Union
 
+import numpy as np
+
 
 def get_parsed_input(filepath: os.PathLike):
     with open(filepath, 'r') as file:
@@ -45,3 +47,20 @@ def run_day(
     if run_dev:
         print(f"Dev: {dev_time / 1000000:.4g}ms")
     print(f"Main: {main_time / 1000000:.4g}ms")
+
+def grid_get(
+        grid: np.array,
+        x: int,
+        y: int,
+        default = "."
+):
+    """Fault tolerant grid get function.
+
+    Returns entry unless result is OOB, then returns default value."""
+    if x < 0 or y < 0:
+        return default
+    try:
+        return grid[x, y]
+    except IndexError:
+        return default
+
