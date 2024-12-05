@@ -35,11 +35,11 @@ def run_day(
         print("\n")
         dev_time = time.process_time_ns() - t0
 
-
-    print("Main results: ")
-    t1 = time.process_time_ns()
-    main_func(parse_func(main_math))
-    main_time = time.process_time_ns() - t1
+    else:
+        print("Main results: ")
+        t1 = time.process_time_ns()
+        main_func(parse_func(main_math))
+        main_time = time.process_time_ns() - t1
 
     print ("\n")
 
