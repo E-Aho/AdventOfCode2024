@@ -46,7 +46,8 @@ def run_day(
     print("Timings:")
     if run_dev:
         print(f"Dev: {dev_time / 1000000:.4g}ms")
-    print(f"Main: {main_time / 1000000:.4g}ms")
+    else:
+        print(f"Main: {main_time / 1000000:.4g}ms")
 
 def grid_get(
         grid: np.array,

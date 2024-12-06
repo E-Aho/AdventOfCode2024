@@ -10,14 +10,11 @@ def main(input: str):
         for x in first_section.strip().split("\n")
     ]
 
-    rules = set()
-    for a, b in ordering_rules:
-        rules.add((a, b))
-
+    rules = set((a, b) for a, b in ordering_rules)
     updates = [list(map(int, x.split(','))) for x in second_section.strip().split("\n")]
 
     def compare(a, b):
-        # compares two specific entries in list to check if they are correctly ordered
+        """compares two specific entries in list to check if they follow rules"""
         if (a, b) in rules:
             return -1
         elif (b, a) in rules:
@@ -32,8 +29,6 @@ def main(input: str):
             p1 += update[len(update)//2]
         else:
             p2 += sorted_update[len(update)//2]
-
-
     print(f"Part 1: {p1}")
     print(f"Part 2: {p2}")
 
