@@ -56,6 +56,14 @@ def main(input: str):
 
     print(f"Part 2: {count_loops}")
 
+    # TODO: Rectangle based idea for p2:
+    # track lines formed by pairs of blocks in set
+    # track blocks in set
+    # for each step in path:
+        # if reflection of next point in any line by blocks in set:
+            # check path of proposed loop does not contain block (set intersection)
+                # forms valid loop
+
 
 if __name__ == "__main__":
     run_day(main, run_dev=False, parse_input=False)
