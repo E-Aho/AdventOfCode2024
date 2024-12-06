@@ -8,10 +8,7 @@ def main(input: str):
         list(x) for x in input.strip().split("\n")
     ])
 
-    down = (1, 0)
-    up = (-1, 0)
-    left = (0, -1)
-    right = (0, 1)
+    up = (-1, 0) # ive somehow rotated this in the above
 
     start_pos = np.where(map_arr == "^")
     start_pos = start_pos[0][0], start_pos[1][0]
@@ -30,20 +27,14 @@ def main(input: str):
 
     seen = set()
     seen.add(start_pos)
-    adj_points = set()
 
     pos = start_pos
     dir = start_dir
 
-
-
     while pos != "OOB":
-        # print(pos, dir)
         pos, dir = take_guard_step(pos, dir, map_arr)
         if pos != "OOB":
             seen.add(pos)
-            for adj_point in [(pos[0] + a, pos[1] + b) for a, b in [up, down, left, right]]:
-                adj_points.add(adj_point)
 
     def check_if_loops(block, map):
         try:
@@ -62,12 +53,12 @@ def main(input: str):
         return False
 
     count_loops = 0
-    for potential_block in adj_points:
+    for potential_block in seen - {start_pos}:
         if check_if_loops(potential_block, map_arr.copy()):
             count_loops += 1
 
-    print(len(seen))
-    print(count_loops)
+    print(f"Part 1: {len(seen)}")
+    print(f"Part 2: {count_loops}")
 
 
 if __name__ == "__main__":
