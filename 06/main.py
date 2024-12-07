@@ -67,3 +67,4 @@ def main(input: str):
 
 if __name__ == "__main__":
     run_day(main, run_dev=False, parse_input=False)
+
