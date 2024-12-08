@@ -79,7 +79,7 @@ def is_within_grid(
     ):
     if x < 0 or y < 0:
         return False
-    if x > len(grid) or y > len(grid[0]):
+    if x >= len(grid) or y >= len(grid[0]):
         return False
     return True
 

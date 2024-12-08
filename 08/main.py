@@ -13,7 +13,7 @@ def main(input: str):
             if v != ".":
                 antenna_positions[v].add((i, j))
 
-    def get_antinodes(map, antenna_positions):
+    def get_antinodes(grid, antenna_positions):
         antinodes = set()
         for freq in antenna_positions.keys():
             for p1, p2 in permutations(antenna_positions[freq], 2):
@@ -22,23 +22,23 @@ def main(input: str):
                         (p1[0] + delta[0], p1[1] + delta[1]),
                         (p2[0] - delta[0], p2[1] - delta[1])
                     ]:
-                    if is_within_grid(map, *point):
+                    if is_within_grid(grid, *point):
                         antinodes.add(point)
         return antinodes
 
-    def get_p2_antinodes(map, antenna_positions):
+    def get_p2_antinodes(grid, antenna_positions):
         antinodes = set()
         for freq in antenna_positions.keys():
             for p1, p2 in permutations(antenna_positions[freq], 2):
                 delta = (p1[0] -p2[0], p1[1] - p2[1])
 
                 point = p1
-                while is_within_grid(map, *point):
+                while is_within_grid(grid, *point):
                     antinodes.add(point)
                     point = (point[0] + delta[0], point[1] + delta[1])
 
                 point = p2
-                while is_within_grid(map, *point):
+                while is_within_grid(grid, *point):
                     antinodes.add(point)
                     point = (point[0] - delta[0], point[1] - delta[1])
 
