@@ -20,9 +20,8 @@ def main(input: str):
             running_vals = new_vals
         return test_val in running_vals
 
-    print(sum([test if eval_if_possible(test, vals) else 0 for test, vals in equations]))
-    print(sum([test if eval_if_possible(test, vals, p2=True) else 0 for test, vals in equations]))
-
+    print(f"Part 1: {sum([test if eval_if_possible(test, vals) else 0 for test, vals in equations])}")
+    print(f"Part 2: {sum([test if eval_if_possible(test, vals, p2=True) else 0 for test, vals in equations])}")
 
 if __name__ == "__main__":
     run_day(main, run_dev=False, parse_input=False)
