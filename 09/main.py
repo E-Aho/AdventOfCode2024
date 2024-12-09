@@ -3,7 +3,6 @@ import math
 from utils import run_day
 from collections import deque, defaultdict
 
-MAX_FREE_SPACE_WIDTH = 10
 
 def main(input: str):
     file_free_space_pairs = [tuple(map(int, input[i: i+2]))for i in range(0, len(input), 2)]
@@ -60,22 +59,22 @@ def main(input: str):
                     idx += 1
 
         for file in sorted(list(file_map.keys()))[::-1]:
-            i, file_length = file_map[file]
+            i, length = file_map[file]
 
             # get left most free_space
-            free_space_idx, width = math.inf, None
-            for width in range(file_length, MAX_FREE_SPACE_WIDTH):
-                if free_space_map[width] and (new_idx := min(free_space_map[width])) < free_space_idx:
+            free_space_idx, space_width = math.inf, None
+            for w in range(length, max(free_space_map.keys())+1):
+                if free_space_map[w] and (new_idx := min(free_space_map[w])) < free_space_idx:
                     free_space_idx = new_idx
-                    width = width
+                    space_width = w
 
-            if width: # perform swap
+            if space_width: # perform swap
                 if free_space_idx < i:
-                    filesystem[free_space_idx:free_space_idx+file_length] = [file] * file_length
-                    filesystem[i:i+file_length] = [None] * file_length
-                    free_space_map[width].remove(free_space_idx)
-                    if width > file_length:
-                        free_space_map[width - file_length].add(free_space_idx+file_length)
+                    filesystem[free_space_idx:free_space_idx+length] = [file] * length
+                    filesystem[i:i+length] = [None] * length
+                    free_space_map[space_width].remove(free_space_idx)
+                    if space_width > length:
+                        free_space_map[space_width - length].add(free_space_idx+length)
 
         return checksum(filesystem)
 
