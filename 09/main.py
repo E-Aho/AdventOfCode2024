@@ -61,20 +61,19 @@ def main(input: str):
         for file in sorted(list(file_map.keys()))[::-1]:
             i, length = file_map[file]
 
-            # get left most free_space
+            # get left most viable free_space
             free_space_idx, space_width = math.inf, None
-            for w in range(length, max(free_space_map.keys())+1):
+            for w in range(length, 10):  # widest possible free space is 9
                 if free_space_map[w] and (new_idx := min(free_space_map[w])) < free_space_idx:
                     free_space_idx = new_idx
                     space_width = w
 
-            if space_width: # perform swap
-                if free_space_idx < i:
-                    filesystem[free_space_idx:free_space_idx+length] = [file] * length
-                    filesystem[i:i+length] = [None] * length
-                    free_space_map[space_width].remove(free_space_idx)
-                    if space_width > length:
-                        free_space_map[space_width - length].add(free_space_idx+length)
+            if free_space_idx < i: # perform swap
+                filesystem[free_space_idx:free_space_idx+length] = [file] * length
+                filesystem[i:i+length] = [None] * length
+                free_space_map[space_width].remove(free_space_idx)
+                if space_width > length:
+                    free_space_map[space_width - length].add(free_space_idx+length)
 
         return checksum(filesystem)
 
