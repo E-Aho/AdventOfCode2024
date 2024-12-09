@@ -3,6 +3,7 @@ import math
 from utils import run_day
 from collections import deque, defaultdict
 
+MAX_FREE_SPACE_WIDTH = 10
 
 def main(input: str):
     file_free_space_pairs = [tuple(map(int, input[i: i+2]))for i in range(0, len(input), 2)]
@@ -63,7 +64,7 @@ def main(input: str):
 
             # get left most free_space
             free_space_idx, width = math.inf, None
-            for width in range(file_length, max(free_space_map.keys())+1):
+            for width in range(file_length, MAX_FREE_SPACE_WIDTH):
                 if free_space_map[width] and (new_idx := min(free_space_map[width])) < free_space_idx:
                     free_space_idx = new_idx
                     width = width
