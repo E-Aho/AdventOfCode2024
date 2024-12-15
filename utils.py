@@ -20,7 +20,7 @@ def get_raw_input(filepath: os.PathLike):
 def run_day(
         main_func: Callable[[Union[list, str]], None],
         run_dev: bool = True,
-        parse_input: bool = True
+        parse_input: bool = False
 ):
     """Simple wrapper function that calls main with the needed inputs and times the function"""
     directory = Path(os.path.abspath(sys.argv[0])).resolve().parent
@@ -89,3 +89,12 @@ def get_grid_from_input(input):
                     [list(x) for x in input.strip().split("\n")]), k=-1
             )
 
+ADJACENT_DIRECTIONS = {(-1, 0), (1, 0), (0, -1), (0, 1)}
+
+def get_adjacent_points(point, array=None):
+    possible_points = [(point[0] + d[0], point[1] + d[1]) for d in ADJACENT_DIRECTIONS]
+    adj_points = set()
+    for p in possible_points:
+        if array is None or is_within_grid(array, *p):
+            adj_points.add(p)
+    return adj_points

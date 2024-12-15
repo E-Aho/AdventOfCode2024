@@ -7,6 +7,7 @@ def main(input: str):
     input = [int(x) for x in input.split(" ")]
 
     @functools.cache
+
     def recursive_count(stone, t):
         if t == 0:
             return 1
