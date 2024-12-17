@@ -98,3 +98,12 @@ def get_adjacent_points(point, array=None):
         if array is None or is_within_grid(array, *p):
             adj_points.add(p)
     return adj_points
+
+def print_grid(grid):
+    s = ""
+    for j in range(len(grid[0])-1, -1, -1):
+        for i in range(len(grid)):
+            s += grid[i, j]
+        s+= "\n"
+    print(s)
+    print("\n")

@@ -42,7 +42,7 @@ def main(input: str):
                 turn_score = 1000 * get_number_of_turns(vec, delta)
                 new_score = score + 1 + turn_score
 
-                if new_score <= fastest_journies[(adj, delta)] and new_score <= 66404:
+                if new_score <= fastest_journies[(adj, delta)]:
                     fastest_journies[(adj, delta)] = new_score
                     heapq.heappush(pq, (new_score, (adj, delta)))
 
