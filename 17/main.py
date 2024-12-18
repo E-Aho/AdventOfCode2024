@@ -5,18 +5,19 @@ from utils import run_day
 
 def main(input: str):
 
+    regs, prog = input.split("\n\n")
+    _rg = []
+    for reg in regs.split("\n"):
+        _rg.append(int(reg.split(": ")[1]))
+
+    program = tuple(map(int, prog.split(": ")[1].split(",")))
+    base_reg = list(_rg)
 
     class ChronospatialComputer:
-        def __init__(self, input_string,  p2: bool=False):
-            regs, prog = input_string.split("\n\n")
-            _rg = []
-            for reg in regs.split("\n"):
-                _rg.append(int(reg.split(": ")[1]))
+        def __init__(self):
+            self.program = program
+            self.reg = base_reg.copy()
 
-            self.program = tuple(map(int, prog.split(": ")[1].split(",")))
-            self.reg = list(_rg)
-
-            self.p2 = p2
             self.pointer = 0
             self.output = []
 
@@ -33,8 +34,6 @@ def main(input: str):
             print(f"Pointer: {self.pointer}\n Register: {self.reg}\n Output: {self.output}")
 
         def operate(self) -> bool:
-            # print(f"Pre:")
-            # self.print_state()
             try:
                 op, inp = self.program[self.pointer], self.program[self.pointer + 1]
             except IndexError:
@@ -68,20 +67,35 @@ def main(input: str):
             while self.operate():
                 pass
 
-
-
-    p1_computer = ChronospatialComputer(input)
+    p1_computer = ChronospatialComputer()
     p1_computer.operate_till_halt()
-    print(print(",".join(map(str, p1_computer.output))))
+
+    output_str = ",".join(map(str, p1_computer.output))
+    print(f'P1: {output_str}')
 
     def run_for_i(i):
-        c = ChronospatialComputer(input)
+        c = ChronospatialComputer()
+        c.reg[0] = i
         c.operate_till_halt()
         return c.output
 
+    def find_solutions(depth, a, results: list = None):
+        # run backwards, finding next possible result
+        if results is None:
+            results = []
 
+        v = program[-depth]
+        for i in range(0, 8):
+            output = run_for_i(a+i)
+            if output[0] == v:
+                if depth == len(program):
+                    results.append(a+i)
+                elif depth < len(program):
+                    results += find_solutions(depth+1, (a+i) * 8)
 
+        return results
 
+    print(f"Part 2: {min(find_solutions(1, 0))}")
 
 if __name__ == "__main__":
     run_day(main, run_dev=False)
