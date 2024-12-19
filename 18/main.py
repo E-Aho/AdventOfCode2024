@@ -1,5 +1,5 @@
 import math
-from collections import deque, defaultdict
+from collections import defaultdict
 from utils import run_day, get_adjacent_points, grid_get
 import numpy as np
 import heapq
@@ -20,12 +20,14 @@ def main(input: str):
     target = (SHAPE, SHAPE)
 
     def get_grid_with_fallens(fallens):
-        mem = np.zeros([SHAPE+1, SHAPE+1], object)
+        mem = np.zeros([SHAPE+1, SHAPE+1])
         for x, y in fallens:
             mem[x, y] = 1
         return mem
 
     def dijkstras_for_map(fallens):
+        # realised this doesn't need to be dijkstras, but having done it two days ago, I was fully dijkstra mode.
+        # BFS would be faster, but if it ain't broke don't fix it.
         memory = get_grid_with_fallens(fallens)
         queue = [(0, initial_position)]
         fastest_to_position = defaultdict(lambda: math.inf)
@@ -43,7 +45,7 @@ def main(input: str):
 
     print(f"Part 1: {dijkstras_for_map(raw_falling_bytes[:DIST_TO_DRAW])}")
 
-    # p2: just reuse dijkstras, it's fast enough, even if flood fill would be faster.
+    # p2: just reuse the above, it's fast enough, even if flood fill would be faster.
     # runs 2x slower than flood fill algorithm, but less code :))))
     for i in range(DIST_TO_DRAW, len(raw_falling_bytes)):
         fallens = raw_falling_bytes[:i+1]
