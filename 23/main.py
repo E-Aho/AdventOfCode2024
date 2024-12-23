@@ -27,7 +27,7 @@ def main(input: str):
 
 
     # P2: Use NetworkX cliques.
-    # Could do with raw python using Bron-Kerbosh, but this is cleaner
+    # Could do with raw python using Bron-Kerbosh algo, but this is cleaner
     graph = nx.Graph()
     graph.add_edges_from(connections)
     clusters = list(nx.find_cliques(graph))
