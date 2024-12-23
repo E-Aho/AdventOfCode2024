@@ -2,6 +2,8 @@ from collections import defaultdict
 
 from utils import run_day
 
+import networkx as nx
+
 
 def main(input: str):
 
@@ -21,23 +23,17 @@ def main(input: str):
                 if len([x for x in [c[0], c[1], n] if x[0] == "t"]) > 0:
                     t_triads.add(tuple(sorted([c[0], c[1], n])))
 
-    print(f"P1: {len(t_triads)}")
+    print(f"Part 1: {len(t_triads)}")
 
-    # merge_connections
-    subnets = [set(x) for x in connections]
-    for node, conns in node_connections.items():
-        s = subnets.copy()
-        for subnet in subnets:
-            if subnet <= conns:
-                s.append((subnet.union({node})))
-        subnets = s
 
-    biggest_subnet = set()
-    for k in subnets:
-        if len(k) > len(biggest_subnet):
-            biggest_subnet = k
+    # P2: Use NetworkX cliques.
+    # Could do with raw python using Bron-Kerbosh, but this is cleaner
+    graph = nx.Graph()
+    graph.add_edges_from(connections)
+    clusters = list(nx.find_cliques(graph))
+    clusters.sort(key=len, reverse=True)
 
-    print(f"Part 2: {",".join(sorted(list(biggest_subnet)))}")
+    print(f"Part 2: {",".join(sorted(list(clusters[0])))}")
 
 if __name__ == "__main__":
     run_day(main, run_dev=False)

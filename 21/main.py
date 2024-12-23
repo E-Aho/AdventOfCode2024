@@ -2,7 +2,8 @@ import functools
 
 from utils import run_day
 
-"""NB: Largely inspired by a pal's solution. I had something working for P1, which didn't work for p2."""
+"""NB: Cop out today... The following is largely based on a pal's solution. I had something working for P1, 
+but there were a bunch of bugs for p2, and I was short on time. I hope to redo this day from scratch when I have some time."""
 
 keypad_coords = {
     "7": (0, 0),
