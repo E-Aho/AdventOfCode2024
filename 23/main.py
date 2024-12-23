@@ -1,9 +1,43 @@
+from collections import defaultdict
+
 from utils import run_day
 
 
 def main(input: str):
-    pass
 
+    connections = set()
+    node_connections = defaultdict(set)
+    for line in input.splitlines():
+        nodes = tuple(sorted(line.split("-")))
+        connections.add(nodes)
+        node_connections[nodes[0]].add(nodes[1])
+        node_connections[nodes[1]].add(nodes[0])
+
+
+    t_triads = set()
+    for c in connections:
+        for n in node_connections[c[0]]:
+            if n in node_connections[c[1]]:
+                if len([x for x in [c[0], c[1], n] if x[0] == "t"]) > 0:
+                    t_triads.add(tuple(sorted([c[0], c[1], n])))
+
+    print(f"P1: {len(t_triads)}")
+
+    # merge_connections
+    subnets = [set(x) for x in connections]
+    for node, conns in node_connections.items():
+        s = subnets.copy()
+        for subnet in subnets:
+            if subnet <= conns:
+                s.append((subnet.union({node})))
+        subnets = s
+
+    biggest_subnet = set()
+    for k in subnets:
+        if len(k) > len(biggest_subnet):
+            biggest_subnet = k
+
+    print(f"Part 2: {",".join(sorted(list(biggest_subnet)))}")
 
 if __name__ == "__main__":
-    run_day(main, run_dev=True)
+    run_day(main, run_dev=False)
