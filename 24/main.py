@@ -40,7 +40,6 @@ def main(input: str):
     def get_z_state():
         z_keys = sorted([x for x in result_map if x[0] == "z"])
         state = gates.copy()
-
         for g in z_keys:
             state = parse_state(g, state)
 
@@ -69,11 +68,9 @@ def main(input: str):
             logic_map[inp_b] = a
 
             swapped_gates.update({a,b})
-
-
         carry = None
-
         bit = 0
+
         while bit < len(xs):
             if bit == 0:
                 carry = find_gate(xs[0], ys[0], "AND")
@@ -82,31 +79,22 @@ def main(input: str):
                 and_gate = find_gate(xs[bit], ys[bit], "AND")
 
                 carry_xor = find_gate(xor_gate, carry, "XOR")
-                if not carry_xor:
-                    # xy xor and the last carry should exist as xor
+                if not carry_xor:  # xy xor and the last carry should exist as xor
                     swap_gate(xor_gate, and_gate)
                     bit = 0
-                    print("carry")
                     continue
 
-                if carry_xor != zs[bit]:
-                    # carry_xor should be the output
+                if carry_xor != zs[bit]:  # carry_xor should be the output
                     swap_gate(carry_xor, zs[bit])
                     bit = 0
-                    print("zs")
                     continue
 
                 carry_and = find_gate(xor_gate, carry, "AND")
                 carry = find_gate(and_gate, carry_and, "OR")
-
             bit += 1
-            print(bit)
         return swapped_gates
 
     print(f"Part 2: {",".join(sorted(find_incorrect_gates()))}")
-
-
-
 
 
 if __name__ == "__main__":
